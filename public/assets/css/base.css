@@ -1,0 +1,207 @@
+/* ===== Design tokens ===== */
+:root {
+  --ink: #1a1a1a;
+  --paper: #ffffff;
+  --navy: #0d163c;
+  --navy-soft: #3d4563;
+  --lime: #0099d8;
+  --lime-pale: #e0f4fb;
+  --blue: #b3d4ff;
+  --coral: #ff8080;
+  --gold: #ffda66;
+  --gray-100: #e6e6e6;
+  --gray-300: #bcbec0;
+  --gray-400: #999999;
+  --gray-500: #878787;
+  --gray-600: #737373;
+  --line: rgba(26, 26, 26, 0.12);
+  --line-on-navy: rgba(255, 255, 255, 0.14);
+
+  --font-sans: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --max-width: 1360px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-pad: clamp(64px, 10vw, 160px);
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: auto; /* Lenis takes over smoothing; avoid double smoothing */
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.6rem, 6.5vw, 5.6rem); line-height: 0.98; }
+h2 { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
+h3 { font-size: clamp(1.25rem, 2.1vw, 1.6rem); }
+
+p { margin: 0 0 1em; color: var(--gray-600); }
+
+.text-muted { color: var(--gray-400); }
+
+.eyebrow-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.eyebrow-row .marker { width: 8px; height: 8px; background: var(--ink); flex-shrink: 0; }
+.section--navy .eyebrow-row .marker,
+.section--dark .eyebrow-row .marker { background: var(--lime); }
+
+.eyebrow {
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+.section--navy .eyebrow, .section--dark .eyebrow { color: rgba(255,255,255,.65); }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 20px;
+  z-index: 1000;
+}
+.skip-link:focus { left: 12px; top: 12px; }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .4s var(--ease), background .3s ease, color .3s ease;
+  will-change: transform;
+}
+
+/* pill: fully-rounded, compact — nav CTAs, inline actions */
+.btn--pill { padding: 15px 28px; border-radius: 999px; background: var(--lime); color: var(--ink); }
+.btn--pill:hover { background: var(--ink); color: var(--lime); }
+.btn--pill.btn--black { background: var(--ink); color: #fff; }
+.btn--pill.btn--black:hover { background: var(--lime); color: var(--ink); }
+.btn--pill.btn--white { background: #fff; color: var(--ink); }
+.btn--pill.btn--white:hover { background: var(--lime); }
+.btn--pill.btn--outline { background: transparent; color: inherit; border: 1px solid currentColor; }
+.btn--pill.btn--outline:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.btn--block { display: flex; justify-content: center; margin-top: 18px; }
+
+/* icon-label: square lime icon box + text label, the site's signature CTA pattern */
+.btn-icon-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.section--navy .btn-icon-label, .section--dark .btn-icon-label { color: #fff; }
+.btn-icon-label__box {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--lime);
+  color: var(--ink);
+  transition: background .3s ease, transform .35s var(--ease);
+}
+.btn-icon-label:hover .btn-icon-label__box { transform: translateX(4px); }
+.btn-icon-label__box svg { width: 20px; height: 20px; }
+
+/* ===== Section shell ===== */
+.section { padding: var(--section-pad) var(--gutter); }
+.section--navy { background: var(--navy); color: #fff; }
+.section--navy p { color: rgba(255,255,255,.7); }
+.section--navy h1, .section--navy h2, .section--navy h3 { color: #fff; }
+.wrap { max-width: var(--max-width); margin: 0 auto; }
+
+.grid { display: grid; gap: clamp(20px, 3vw, 40px); }
+
+/* ===== Page loader ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--lime);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+/* ===== Cursor (paper-plane) ===== */
+.cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 9998;
+  /* Icon's nose sits ~2/24 in from the top-left of its box, so a small
+     negative offset (not -50%) puts that tip on the actual pointer position —
+     the same "hotspot at the tip" behavior a native arrow cursor has.
+     Set via GSAP (main.js) instead of here, since it also drives the
+     fly-direction rotation and speed scale on the same transform. */
+  color: var(--lime);
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,.4));
+  opacity: 0;
+  transition: opacity .3s ease, width .25s ease, height .25s ease;
+}
+.cursor-dot svg { display: block; width: 100%; height: 100%; }
+.cursor-dot.is-active { opacity: 1; }
+.cursor-dot.is-hover { width: 34px; height: 34px; }
+
+@media (pointer: coarse) {
+  .cursor-dot { display: none; }
+}
+
+/* Native cursor is hidden only once JS confirms the custom cursor is actually
+   running (see main.js) — otherwise a JS/GSAP failure would leave the visitor
+   with no visible pointer at all. */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
