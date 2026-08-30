@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# PHP local dev
+.env
+.env.local
+vendor/
+composer.lock
+
+# Logs
+*.log
+error_log
+
+# Local dev server / cache
+.php-cache/
