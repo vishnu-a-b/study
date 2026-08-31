@@ -9,7 +9,15 @@ Awwwards-style rebuild of studwise.in, same content and real images, built with 
 
 ## Setup
 
-1. Create the database and import schema + seed data:
+1. Copy `.env.example` to `.env` and fill in your DB credentials (`.env` is gitignored, so real credentials never get committed):
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   `config/config.php` loads `.env` automatically (via `getenv()`/`putenv()`, no dependency needed) and falls back to `root` / no password / `127.0.0.1:3306` if it's absent.
+
+2. Create the database (skip if using a hosted DB that already exists) and import schema + seed data:
 
    ```bash
    mysql -u root -e "CREATE DATABASE studwise_dev CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
@@ -17,17 +25,12 @@ Awwwards-style rebuild of studwise.in, same content and real images, built with 
    mysql -u root studwise_dev < database/seed.sql
    ```
 
-2. Download the real site images (one-time; skips anything already downloaded):
+   For a remote host, pass `-h <host> -P <port> -u <user> -p`. If your `mysql` client can't authenticate against an older server (`mysql_native_password` plugin errors), import via PHP's PDO instead — it doesn't have that limitation.
+
+3. Download the real site images (one-time; skips anything already downloaded):
 
    ```bash
    bash scripts/download-images.sh
-   ```
-
-3. If your DB credentials differ from the defaults (`root` / no password / `127.0.0.1`), set env vars before starting PHP, e.g.:
-
-   ```bash
-   export STUDWISE_DB_USER=myuser
-   export STUDWISE_DB_PASS=mypass
    ```
 
 4. Run the site locally:
